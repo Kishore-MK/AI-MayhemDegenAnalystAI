@@ -71,7 +71,7 @@ convo = model.start_chat(history=[
   },
   {
     "role": "model",
-    "parts": ["Hi, I'm DeMatter.  Do you have any questions about crypto prices or hash validations?"]
+    "parts": ["Hi, I'm Blockchat AI.  Do you have any questions about crypto prices or hash validations?"]
   },
   {
     "role": "user",

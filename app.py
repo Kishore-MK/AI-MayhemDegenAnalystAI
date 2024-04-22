@@ -7,6 +7,7 @@ import shelve
 import os
 import pandas as pd
 from datetime import datetime, timedelta
+import matplotlib .pyplot as plt
 # CoinGecko API base URL
 COINGECKO_API_BASE_URL = 'https://api.coingecko.com/api/v3'
 
@@ -55,8 +56,15 @@ def fetch_price_history(coin_id="bitcoin", days=30):
     response = requests.get(url, params=params)
     data = response.json()
     prices = data['prices']
-    df= pd.DataFrame(prices, columns=['timestamp', 'price'])
+    timestamps = [datetime.fromtimestamp(ts / 1000) for ts in [price[0] for price in prices]]
+    prices = [price[1] for price in prices]  # Extract only prices
+    df = pd.DataFrame(list(zip(timestamps, prices)), columns=['timestamp', 'price'])
+    showchart(df)
     return df
+def showchart(df):
+    st.line_chart(df,x="timestamp",y= "price")
+    # st.pyplot(plt.gcf())
+    # st.session_state.messages.append({"role": "assistant", "content": plt.gcf()})
 def recommendation(coin_id):
     df=fetch_price_history(coin_id)
     df['date'] = pd.to_datetime(df['timestamp'], unit='ms')
