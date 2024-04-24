@@ -126,7 +126,6 @@ for message in st.session_state.messages:
 # User input
 prompt = st.chat_input("What's up?")
 
-# Process user input
 if prompt:
      # Display loading spinner
       with st.chat_message("user"):
